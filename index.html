@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>xuanran</title>
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	</head>
+	<body>
+		<div class="box">
+			<botton id="btn">点击</botton>
+		</div>
+		<script id="moban" type="text/x-handlebars-template">
+			<div>
+				<h1>{{ title }}</h1>
+				<p>{{ return }}</p>
+				<p>{{ moer }}</p>
+				<div>
+				{{#each diyiqi}}
+				
+					<h2>{{ Htitle }}</h2>
+					<p>{{ h }}</p>
+					<span>{{ img }}</span>
+					
+						
+					
+				{{/each}}
+				</div>
+			</div>
+		</script>
+		<script type="text/javascript" src="../0705/lib/jquery.min.js" ></script>
+		<script src="../xuanran/js/handlebars.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../xuanran/js/setfontsize.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script type="text/javascript" charset="utf-8">
+			$(function(){	
+				$("#btn").on("click",function(){
+					$.ajax({
+						url:"data.json",
+						type:"get",
+						dataType:"json",
+						beforeSend:function() {
+			               
+			                $('.box').append("<span class='loading'>正在加载中....</span>");
+			
+					 	},
+						success:function(data){
+							//console.log(data.info)
+							var str=$("#moban").html(),
+							moban=Handlebars.compile(str);
+							
+							
+							$(".box").html(moban(data))
+						},
+						error:function() {
+							alert('未找到json文件');
+					 	}
+					})
+				})
+			})
+
+		</script>
+		
+	</body>
+	
+</html>
